@@ -1,7 +1,11 @@
 #!/usr/bin/env ruby -i
 require_relative 'customer'
 require_relative 'sales'
-
+if ARGV.length == 0
+  puts "Error!"
+  print "Use --help or -h"
+  exit 1
+end
 if ARGV[0] == "--help" or ARGV[0] == "-h"
   puts "\n---Use---"
   puts "./main input_filename output_filename"
