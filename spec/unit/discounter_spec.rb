@@ -8,7 +8,7 @@ RSpec.describe Discounter do
       @discounted = build_list(:ticket, 5, price: 99, location: 'OK')
       @alternating_prices = [Ticket.new(99,'OK'),Ticket.new(100,'OK'),Ticket.new(99,'OK'),Ticket.new(100,'OK'),Ticket.new(99,'OK')]
     end
-    
+
     before(:each) do
       @source = build_list(:ticket, 5, price: 100, location: 'OK')
       @dest = build_list(:ticket, 5, price: 100, location: 'OK')
@@ -33,13 +33,13 @@ RSpec.describe Discounter do
     end
 
     it "perform a discount when list is greater than 3" do
-      calculator = Discounter.new("Bulk discount, low cutoff", 1, 1, lambda {|x| x.length > 3})
+      calculator = Discounter.new("Bulk discount, low cutoff", 1, 1) {|x| x.length > 3}
       calculator.calculate(@source, @source)
       expect(@source).to eq(@discounted)
     end
 
     it "don't perform a discount when list is smaller than 6" do
-      calculator = Discounter.new("Bulk discount, high cutoff", 1, 1, lambda {|x| x.length > 5})
+      calculator = Discounter.new("Bulk discount, high cutoff", 1, 1) {|x| x.length > 5}
       calculator.calculate(@source, @source)
       expect(@source).to eq(@dest)
     end

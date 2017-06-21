@@ -5,7 +5,7 @@ class Ticket
   attr_accessor :location
   attr_accessor :adjustments
 
-  def initialize(price = 100, location='OK')
+  def initialize(price=nil, location=nil)
     self.price = price
     self.location = location
     self.adjustments = []

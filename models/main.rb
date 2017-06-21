@@ -18,10 +18,10 @@ customers = Customer.load_ticket_file(input)
 sales = Sales.new
 sales.add_sale("OH 3 for 2 discount", 3, 'OH', 'OH', 300)
 sales.add_sale("Free SK for every OH", 1, 'OH', 'SK', 30)
-sales.add_sale("BC bulk discount", 1, 'BC', 'BC', 20, 
-               lambda {|x| x.length > 4})
+sales.add_sale("BC bulk discount", 1, 'BC', 'BC', 20
+              ) {|tickets_to_apply| tickets_to_apply.length > 4}
 
-print "Customer | Price | Discount | Amount Owed\n" 
+print "Customer | Price | Discount | Amount Owed\n"
 customers.each do |id, customer|
   checkout = customer.get_checkout_prices(sales)
   print id.rjust(8) + " |"

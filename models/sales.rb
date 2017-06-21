@@ -18,9 +18,8 @@ class Sales
   end
 
   # Adds a sale to be used upon checkout
-  def add_sale(name, itr, src_key, dest_key, discount_amount,
-               flag=lambda {|x| return true})
-    new_discount = Discounter.new(name, itr, discount_amount, flag)
+  def add_sale(name, itr, src_key, dest_key, discount_amount,&block)
+    new_discount = Discounter.new(name, itr, discount_amount, &block)
     new_selector = Selector.new(src_key, dest_key)
     self.discounts.push({"discount" => new_discount,
                          "selection" => new_selector})

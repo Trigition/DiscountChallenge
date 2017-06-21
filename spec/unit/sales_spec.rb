@@ -35,16 +35,14 @@ RSpec.describe Sales do
 
     it "checks for bulk discounts" do
       tickets = build_list(:ticket, 5, location: 'BC', price: 110)
-      @sales.add_sale("BC bulk discount", 1, 'BC', 'BC', 20,
-                      lambda {|x| x.length > 4})
+      @sales.add_sale("BC bulk discount", 1, 'BC', 'BC', 20) {|x| x.length > 4}
       @sales.apply_all_discounts(tickets)
       expect(@sales.get_total(tickets)).to eq(90*5)
     end
 
     it "checks for non-satisfactory amount for bulk" do
       tickets = build_list(:ticket, 4, location: 'BC', price: 110)
-      @sales.add_sale("BC bulk discount", 1, 'BC', 'BC', 20,
-                      lambda {|x| x.length > 4})
+      @sales.add_sale("BC bulk discount", 1, 'BC', 'BC', 20) {|x| x.length > 4}
       @sales.apply_all_discounts(tickets)
       expect(@sales.get_total(tickets)).to eq(110*4)
     end
